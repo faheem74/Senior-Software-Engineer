@@ -8,6 +8,9 @@ import { HeroPortrait } from "@/components/ui/HeroPortrait";
 import { GitHubIcon } from "@/components/ui/GitHubIcon";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { RoleRotator } from "@/components/motion/RoleRotator";
+import { SplitHeadline } from "@/components/motion/SplitHeadline";
+import { TechMarquee } from "@/components/motion/TechMarquee";
+import { Magnetic } from "@/components/motion/MagneticButton";
 import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 
 export default function HomePage() {
@@ -15,7 +18,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-white/5">
+      <section className="relative min-h-[min(100svh,920px)] overflow-hidden border-b border-white/5">
         <div className="pointer-events-none absolute inset-0 grid-fade opacity-50" />
         <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-[#7C5CFF]/20 blur-3xl" />
         <div className="pointer-events-none absolute -right-16 bottom-10 h-80 w-80 rounded-full bg-[#35D6FF]/12 blur-3xl" />
@@ -25,13 +28,14 @@ export default function HomePage() {
             <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-[#35D6FF]">
               Hello, I&apos;m Faheem Bilal
             </p>
-            <h1 className="mt-3 text-3xl font-semibold leading-[1.12] tracking-tight text-[#F5F7FA] sm:text-4xl lg:text-5xl">
-              Senior Software Engineer
-              <br />
-              Building Scalable Digital
-              <br />
-              Experiences.
-            </h1>
+            <SplitHeadline
+              className="mt-3 text-3xl font-semibold leading-[1.12] tracking-tight text-[#F5F7FA] sm:text-4xl lg:text-5xl"
+              lines={[
+                "Senior Software Engineer",
+                "Building Scalable Digital",
+                "Experiences.",
+              ]}
+            />
             <div className="mt-4">
               <RoleRotator />
             </div>
@@ -41,13 +45,17 @@ export default function HomePage() {
               AI-powered solutions, and reliable cloud systems.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
-              <Button href="/projects">
-                Explore My Work
-                <ArrowRight size={16} />
-              </Button>
-              <Button href="/contact" variant="outline">
-                Let&apos;s Work Together
-              </Button>
+              <Magnetic>
+                <Button href="/projects">
+                  Explore My Work
+                  <ArrowRight size={16} />
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button href="/contact" variant="outline">
+                  Let&apos;s Work Together
+                </Button>
+              </Magnetic>
             </div>
             <div className="mt-5 flex flex-wrap gap-3 text-sm">
               <a
@@ -91,6 +99,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <TechMarquee />
+
       <Section>
         <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {siteConfig.highlights.map((item) => (
@@ -119,10 +129,14 @@ export default function HomePage() {
           ))}
         </Stagger>
         <div className="mt-5 flex flex-wrap gap-2.5">
-          <Button href="/projects">View all projects</Button>
-          <Button href="/assistant" variant="secondary">
-            Open AI Assistant
-          </Button>
+          <Magnetic>
+            <Button href="/projects">View all projects</Button>
+          </Magnetic>
+          <Magnetic>
+            <Button href="/assistant" variant="secondary">
+              Open AI Assistant
+            </Button>
+          </Magnetic>
           <Button href="/services" variant="outline">
             Services
           </Button>

@@ -5,6 +5,8 @@ import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
+import { Preloader } from "@/components/motion/Preloader";
+import { CursorGlow } from "@/components/motion/CursorGlow";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -71,6 +73,8 @@ export default function RootLayout({
         >
           Skip to content
         </a>
+        <Preloader />
+        <CursorGlow />
         <ScrollProgress />
         <Navbar />
         <main id="main">{children}</main>

@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
-/** Soft page entrance for multi-route navigation. */
+/** Soft cinematic page entrance between routes. */
 export function PageTransition({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion();
 
@@ -11,9 +11,9 @@ export function PageTransition({ children }: { children: ReactNode }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
