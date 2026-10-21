@@ -18,19 +18,22 @@ export function HeroPortrait({ className }: { className?: string }) {
     >
       <FloatingOrbs />
 
-      <div className="relative z-10 mx-auto aspect-[4/5] w-[88%] max-w-[360px]">
-        <div className="animate-pulse-glow absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-[#7C5CFF]/35 via-transparent to-[#35D6FF]/25 blur-2xl" />
-        <div className="relative h-full overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#111722] shadow-[0_30px_80px_rgba(0,0,0,0.45)]">
-          <Image
-            src={siteConfig.profileImage}
-            alt={`${siteConfig.name} — professional portrait in navy suit`}
-            fill
-            priority
-            sizes="(max-width:768px) 80vw, 360px"
-            className="object-cover object-[center_18%]"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080A0F]/85 via-transparent to-transparent" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4">
+      <div className="relative z-10 mx-auto w-full max-w-[380px]">
+        <div className="animate-pulse-glow absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-[#7C5CFF]/40 via-transparent to-[#35D6FF]/30 blur-2xl" />
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-white/15 bg-[#111722] shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+          {/* Explicit height avoids fill/aspect collapse in some layouts */}
+          <div className="relative aspect-[4/5] w-full">
+            <Image
+              src={siteConfig.profileImage}
+              alt={`${siteConfig.name} — professional portrait in navy suit`}
+              fill
+              priority
+              sizes="(max-width:768px) 85vw, 380px"
+              className="object-cover object-[center_12%]"
+            />
+          </div>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#080A0F] via-[#080A0F]/10 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 p-4">
             <p className="text-sm font-semibold text-[#F5F7FA]">{siteConfig.name}</p>
             <p className="text-xs text-[#A6AFBF]">Senior Software Engineer</p>
           </div>
