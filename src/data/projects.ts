@@ -29,6 +29,7 @@ export interface Project {
   isDesign: boolean;
   technologies: string[];
   liveUrl?: string;
+  sourceUrl?: string;
   figmaUrl?: string;
   prototypeUrl?: string;
   playStoreUrl?: string;
@@ -541,6 +542,64 @@ export const projects: Project[] = [
     ],
     role: "Resume-listed multi-module mobile app design (Figma).",
     verifiedInformation: ["Figma URL from resume hyperlink"],
+  },
+  {
+    id: "faheem-bilal-site",
+    slug: "faheem-bilal-site",
+    name: "Faheem Bilal — Public Portfolio Site",
+    shortDescription:
+      "Public JavaScript portfolio deployment associated with github.com/faheem74.",
+    overview:
+      "Open-source portfolio repository on GitHub with a verified Vercel deployment. Kept as a reference to the owner’s public GitHub identity.",
+    category: "Web Applications",
+    status: "live",
+    featured: false,
+    display: true,
+    isDesign: false,
+    technologies: ["JavaScript", "Vercel"],
+    liveUrl: "https://faheem-bilal.vercel.app",
+    sourceUrl: "https://github.com/faheem74/Faheem-Bilal",
+    thumbnail: thumb("vista-menuhoster"),
+    screenshots: [
+      {
+        src: thumb("vista-menuhoster"),
+        alt: "Faheem Bilal public portfolio reference thumbnail",
+      },
+    ],
+    role: "Personal public repository (GitHub faheem74).",
+    verifiedInformation: [
+      "https://github.com/faheem74/Faheem-Bilal",
+      "homepage https://faheem-bilal.vercel.app",
+    ],
+  },
+  {
+    id: "reacts-projects",
+    slug: "reacts-projects",
+    name: "React Practice Projects",
+    shortDescription:
+      "Collection of React practice projects with a public Vercel deployment.",
+    overview:
+      "Public learning and practice repository under github.com/faheem74 with an accessible Vercel deployment.",
+    category: "Web Applications",
+    status: "demo",
+    featured: false,
+    display: true,
+    isDesign: false,
+    technologies: ["React", "JavaScript", "Vercel"],
+    liveUrl: "https://reacts-projects.vercel.app",
+    sourceUrl: "https://github.com/faheem74/Reacts.-Projects",
+    thumbnail: thumb("empower-zone"),
+    screenshots: [
+      {
+        src: thumb("empower-zone"),
+        alt: "React practice projects reference thumbnail",
+      },
+    ],
+    role: "Personal public repository (GitHub faheem74).",
+    verifiedInformation: [
+      "https://github.com/faheem74/Reacts.-Projects",
+      "homepage https://reacts-projects.vercel.app",
+    ],
   },
 ];
 

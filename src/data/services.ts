@@ -8,112 +8,65 @@ export interface Service {
 export const services: Service[] = [
   {
     id: "full-stack",
-    title: "Full-Stack Development",
+    title: "Full-Stack Web Development",
     description:
-      "End-to-end web products from product requirements to production deployment.",
-    items: [
-      "Business websites",
-      "Web applications",
-      "SaaS platforms",
-      "Admin dashboards",
-      "Customer portals",
-      "API integrations",
-    ],
-  },
-  {
-    id: "backend",
-    title: "Backend Development",
-    description:
-      "Reliable APIs and server-side systems designed for maintainability and scale.",
-    items: [
-      "Node.js / Express.js / NestJS",
-      "REST APIs",
-      "Authentication & authorization",
-      "Database design",
-      "Background processing",
-      "Webhooks & third-party integrations",
-    ],
+      "End-to-end product delivery from requirements through production deployment.",
+    items: ["Web apps", "SaaS platforms", "Admin dashboards", "API integrations"],
   },
   {
     id: "frontend",
     title: "Frontend Development",
     description:
-      "Modern, accessible interfaces with strong performance and clean component architecture.",
-    items: [
-      "React.js / Next.js / Angular",
-      "TypeScript",
-      "Responsive UI",
-      "Accessibility",
-      "Frontend optimization",
-    ],
+      "Modern React, Next.js, and Angular interfaces with strong accessibility and performance.",
+    items: ["Component architecture", "Responsive UI", "TypeScript", "Design systems"],
+  },
+  {
+    id: "backend",
+    title: "Backend Development",
+    description:
+      "Reliable Node.js, Express, and NestJS services designed for maintainability and scale.",
+    items: ["Auth", "Business logic", "Background jobs", "Integrations"],
+  },
+  {
+    id: "api",
+    title: "API Development and Integration",
+    description:
+      "REST and GraphQL APIs with secure authentication and third-party system wiring.",
+    items: ["REST", "JWT", "Webhooks", "External APIs"],
   },
   {
     id: "ai",
-    title: "AI and Generative AI",
+    title: "AI-Powered Application Development",
     description:
-      "Practical AI features grounded in approved business data and secure server-side integrations.",
-    items: [
-      "AI chatbots",
-      "LLM integrations",
-      "AI-powered applications",
-      "Intelligent search",
-      "Document processing",
-      "Business automation",
-      "RAG when appropriate",
-    ],
+      "Practical generative AI features with server-side providers and verified knowledge boundaries.",
+    items: ["LLM APIs", "Assistants", "Automation", "Safe fallbacks"],
   },
   {
     id: "cloud",
-    title: "Cloud and Deployment",
+    title: "Cloud Architecture and Deployment",
     description:
-      "Deployment, observability, and cloud-oriented delivery for production workloads.",
-    items: [
-      "AWS architecture",
-      "Application deployment",
-      "CI/CD",
-      "Docker",
-      "Monitoring & logging",
-      "Performance optimization",
-    ],
+      "AWS-oriented delivery, Vercel deployments, CI/CD, and production troubleshooting.",
+    items: ["AWS", "Docker", "CI/CD", "Monitoring"],
   },
   {
-    id: "mobile",
-    title: "Mobile Development",
+    id: "database",
+    title: "Database Design and Optimization",
     description:
-      "Cross-platform mobile experiences with shared API-backed architecture.",
-    items: [
-      "React Native",
-      "Cross-platform apps",
-      "API integration",
-      "Mobile UI implementation",
-    ],
+      "MongoDB and relational modeling with indexing and query performance in mind.",
+    items: ["Schema design", "Indexing", "Validation", "Query tuning"],
   },
   {
-    id: "ecommerce",
-    title: "E-commerce",
+    id: "performance",
+    title: "Application Performance Optimization",
     description:
-      "Storefronts and commerce workflows focused on clarity, reliability, and conversion paths.",
-    items: [
-      "E-commerce development",
-      "Product and catalog functionality",
-      "Third-party API integrations",
-      "Payment gateway integration where supported",
-      "Backend administration",
-      "Performance improvements",
-    ],
+      "Frontend and backend improvements that reduce latency and improve reliability.",
+    items: ["Profiling", "Caching", "Bundle size", "API latency"],
   },
   {
-    id: "improvement",
-    title: "Existing Application Improvement",
+    id: "consulting",
+    title: "Technical Consulting",
     description:
-      "Stabilize, refactor, and improve systems already in production.",
-    items: [
-      "Debugging & bug fixing",
-      "Code refactoring",
-      "Testing",
-      "Performance improvements",
-      "API troubleshooting",
-      "Production issue resolution",
-    ],
+      "Architecture reviews, delivery planning, and pragmatic engineering guidance.",
+    items: ["Architecture", "Roadmaps", "Code reviews", "Production support"],
   },
 ];

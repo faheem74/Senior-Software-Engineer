@@ -26,24 +26,30 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "Faheem Bilal | Senior Software Engineer & Full-Stack Developer",
+    default: "Faheem Bilal | Senior Software Engineer & AI Architect",
     template: "%s | Faheem Bilal",
   },
   description: siteConfig.description,
   openGraph: {
-    title: "Faheem Bilal | Senior Software Engineer & Full-Stack Developer",
+    title: "Faheem Bilal | Senior Software Engineer & AI Architect",
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: siteConfig.locale,
     type: "website",
-    images: [{ url: "/images/og/default.svg", width: 1200, height: 630 }],
+    images: [
+      {
+        url: "/images/profile/faheem-portrait.jpg",
+        width: 800,
+        height: 800,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Faheem Bilal | Senior Software Engineer & Full-Stack Developer",
+    title: "Faheem Bilal | Senior Software Engineer & AI Architect",
     description: siteConfig.description,
-    images: ["/images/og/default.svg"],
+    images: ["/images/profile/faheem-portrait.jpg"],
   },
   robots: { index: true, follow: true },
   alternates: { canonical: siteConfig.url },
@@ -61,7 +67,7 @@ export default function RootLayout({
       >
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-blue-500 focus:px-3 focus:py-2 focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[#7C5CFF] focus:px-3 focus:py-2 focus:text-white"
         >
           Skip to content
         </a>

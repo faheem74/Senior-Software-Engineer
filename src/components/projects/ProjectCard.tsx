@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ExternalLink, PenTool, ArrowUpRight, Smartphone } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { Button } from "@/components/ui/Button";
+import { GitHubIcon } from "@/components/ui/GitHubIcon";
 import { motion, useReducedMotion } from "framer-motion";
 
 const statusLabel: Record<Project["status"], string> = {
@@ -20,7 +21,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.article
       layout={!reduce}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-500/15 bg-[#101A2B]/80 transition duration-300 hover:-translate-y-1 hover:border-blue-400/35 hover:shadow-[0_20px_50px_rgba(59,130,246,0.14)]"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111722]/90 transition duration-300 hover:-translate-y-1 hover:border-[#7C5CFF]/40 hover:shadow-[0_20px_50px_rgba(124,92,255,0.16)]"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-[#0B1220]">
         <Image
@@ -37,13 +38,13 @@ export function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className="flex flex-1 flex-col p-4">
-        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-sky-400">
+        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#35D6FF]">
           {project.category}
         </p>
-        <h3 className="mt-1 text-lg font-semibold text-slate-50">
+        <h3 className="mt-1 text-lg font-semibold text-[#F5F7FA]">
           {project.name}
         </h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-400">
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-[#A6AFBF]">
           {project.shortDescription}
         </p>
 
@@ -51,7 +52,7 @@ export function ProjectCard({ project }: { project: Project }) {
           {project.technologies.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className="rounded-lg border border-slate-500/15 bg-[#142238] px-2.5 py-1 text-xs text-slate-300"
+              className="rounded-lg border border-white/10 bg-[#0D111A] px-2.5 py-1 text-xs text-[#A6AFBF]"
             >
               {tech}
             </span>
@@ -76,6 +77,17 @@ export function ProjectCard({ project }: { project: Project }) {
             >
               View Live Project
               <ExternalLink size={16} />
+            </Button>
+          ) : null}
+          {project.sourceUrl ? (
+            <Button
+              href={project.sourceUrl}
+              external
+              variant="ghost"
+              className="px-3 py-2"
+            >
+              Source
+              <GitHubIcon size={16} />
             </Button>
           ) : null}
           {project.playStoreUrl ? (
