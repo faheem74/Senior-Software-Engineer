@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { RevealSection } from "@/components/motion/RevealSection";
 
 export function Section({
   id,
@@ -11,9 +12,9 @@ export function Section({
 }) {
   return (
     <section id={id} className={cn("relative scroll-mt-20 py-10 md:py-14", className)}>
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <RevealSection className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {children}
-      </div>
+      </RevealSection>
     </section>
   );
 }
