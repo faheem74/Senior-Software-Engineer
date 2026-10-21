@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-label="Fast Ride Figma prototype placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070B14"/>
+      <stop offset="100%" stop-color="#101A2B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect x="420" y="80" width="360" height="590" rx="40" fill="#0B1220" stroke="#3B82F6" stroke-width="2"/>
+  <rect x="450" y="130" width="300" height="480" rx="24" fill="#142238"/>
+  <rect x="480" y="180" width="240" height="24" rx="8" fill="#38BDF8" opacity="0.8"/>
+  <rect x="480" y="230" width="240" height="120" rx="16" fill="#101A2B"/>
+  <rect x="480" y="380" width="240" height="48" rx="12" fill="#3B82F6"/>
+  <text x="430" y="720" fill="#A8B3C7" font-family="Segoe UI, Arial" font-size="22" text-anchor="middle" transform="translate(170,0)">Fast Ride � Figma Prototype</text>
+  <text x="600" y="40" fill="#75839A" font-family="Segoe UI, Arial" font-size="16" text-anchor="middle">Placeholder  authorized Figma exports pending</text>
+</svg>

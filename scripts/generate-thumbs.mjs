@@ -1,0 +1,41 @@
+import fs from "fs";
+import path from "path";
+
+const slugs = [
+  "destinkpit",
+  "linkway-rides",
+  "tamakon",
+  "empower-zone",
+  "al-hafiz",
+  "akoya",
+  "novietaa-plus",
+  "the-givers",
+  "pure-fitness-africa",
+  "vista-menuhoster",
+  "turbo-car-wash",
+  "bmx-adventure",
+  "fast-ride",
+  "stmcz",
+  "yes-time",
+  "health-fitness",
+  "multi-services-app",
+];
+
+for (const slug of slugs) {
+  const dir = path.join("public", "images", "projects", slug);
+  fs.mkdirSync(dir, { recursive: true });
+  const title = slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#070B14"/><stop offset="100%" stop-color="#142238"/></linearGradient></defs>
+  <rect width="1200" height="750" fill="url(#g)"/>
+  <rect x="48" y="48" width="1104" height="654" rx="28" fill="#101A2B" stroke="rgba(59,130,246,0.35)"/>
+  <circle cx="220" cy="280" r="70" fill="#3B82F6" opacity="0.25"/>
+  <circle cx="980" cy="520" r="90" fill="#34D399" opacity="0.18"/>
+  <text x="80" y="360" fill="#F8FAFC" font-family="Segoe UI, Arial" font-size="44" font-weight="700">${title}</text>
+  <text x="80" y="420" fill="#A8B3C7" font-family="Segoe UI, Arial" font-size="22">Faheem Bilal · Portfolio project visual</text>
+  <text x="80" y="660" fill="#75839A" font-family="Segoe UI, Arial" font-size="18">Placeholder — replace with authorized screenshot when available</text>
+</svg>`;
+  fs.writeFileSync(path.join(dir, "thumb.svg"), svg);
+}
+
+console.log(`Generated ${slugs.length} thumbnails`);

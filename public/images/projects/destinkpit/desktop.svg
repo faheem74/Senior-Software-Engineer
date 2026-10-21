@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750" role="img" aria-label="Destinkpit project placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#142238"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg)"/>
+  <rect x="60" y="50" width="1080" height="70" rx="16" fill="#101A2B" stroke="rgba(148,163,184,0.2)"/>
+  <text x="90" y="95" fill="#F8FAFC" font-family="Segoe UI, Arial" font-size="28" font-weight="600">DESTINK PIT FRESH</text>
+  <rect x="60" y="150" width="680" height="520" rx="24" fill="#101A2B" stroke="rgba(148,163,184,0.15)"/>
+  <rect x="100" y="200" width="420" height="28" rx="8" fill="url(#accent)" opacity="0.9"/>
+  <rect x="100" y="250" width="520" height="16" rx="6" fill="#A8B3C7" opacity="0.35"/>
+  <rect x="100" y="280" width="480" height="16" rx="6" fill="#A8B3C7" opacity="0.25"/>
+  <rect x="100" y="340" width="180" height="48" rx="12" fill="#3B82F6"/>
+  <text x="120" y="370" fill="#fff" font-family="Segoe UI, Arial" font-size="18">Order Now</text>
+  <rect x="780" y="150" width="360" height="520" rx="24" fill="#101A2B" stroke="rgba(148,163,184,0.15)"/>
+  <circle cx="960" cy="340" r="110" fill="#142238" stroke="#38BDF8" stroke-width="3"/>
+  <text x="860" y="560" fill="#A8B3C7" font-family="Segoe UI, Arial" font-size="20">destinkpit.shop</text>
+  <text x="60" y="720" fill="#75839A" font-family="Segoe UI, Arial" font-size="16">Placeholder visual  replace with live screenshot when available</text>
+</svg>
