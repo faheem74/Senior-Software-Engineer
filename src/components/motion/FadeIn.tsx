@@ -8,12 +8,14 @@ export function FadeIn({
   children,
   className,
   delay = 0,
-  y = 12,
+  y = 28,
+  direction = "up",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   y?: number;
+  direction?: "up" | "left" | "right";
 }) {
   const reduce = useReducedMotion();
 
@@ -21,13 +23,20 @@ export function FadeIn({
     return <div className={className}>{children}</div>;
   }
 
+  const offset =
+    direction === "left"
+      ? { x: -36, y: 0 }
+      : direction === "right"
+        ? { x: 36, y: 0 }
+        : { x: 0, y };
+
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.42, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, ...offset }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
@@ -52,10 +61,10 @@ export function Stagger({
       className={cn(className)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: true, margin: "-80px" }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: 0.06 } },
+        show: { transition: { staggerChildren: 0.09 } },
       }}
     >
       {children}
@@ -77,13 +86,15 @@ export function StaggerItem({
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 10 },
+        hidden: { opacity: 0, y: 22, scale: 0.98 },
         show: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.38, ease: [0.22, 1, 0.36, 1] },
+          scale: 1,
+          transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
         },
       }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
     >
       {children}
     </motion.div>

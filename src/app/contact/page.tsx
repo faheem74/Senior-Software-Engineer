@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Button } from "@/components/ui/Button";
+import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -13,17 +14,17 @@ export default function ContactPage() {
   return (
     <Section>
       <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
-        <div>
+        <FadeIn direction="left">
           <SectionHeading
             eyebrow="Contact"
             title="Let's discuss your project"
-            description="Share enough context for a useful reply — goals, constraints, and timeline."
+            description="Share goals, constraints, and timeline for a useful reply."
           />
-          <ul className="space-y-3 text-sm text-slate-300">
+          <ul className="space-y-2 text-sm text-[#A6AFBF]">
             <li>
               Email:{" "}
               <a
-                className="text-sky-300 hover:underline"
+                className="text-[#35D6FF] hover:underline"
                 href={`mailto:${siteConfig.email}`}
               >
                 {siteConfig.email}
@@ -31,14 +32,14 @@ export default function ContactPage() {
             </li>
             <li>
               Phone:{" "}
-              <a className="text-sky-300 hover:underline" href={siteConfig.phoneTel}>
+              <a className="text-[#35D6FF] hover:underline" href={siteConfig.phoneTel}>
                 {siteConfig.phone}
               </a>
             </li>
             <li>
               WhatsApp:{" "}
               <a
-                className="text-sky-300 hover:underline"
+                className="text-[#35D6FF] hover:underline"
                 href={siteConfig.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -47,9 +48,20 @@ export default function ContactPage() {
               </a>
             </li>
             <li>
+              GitHub:{" "}
+              <a
+                className="text-[#35D6FF] hover:underline"
+                href={siteConfig.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                github.com/faheem74
+              </a>
+            </li>
+            <li>
               LinkedIn:{" "}
               <a
-                className="text-sky-300 hover:underline"
+                className="text-[#35D6FF] hover:underline"
                 href={siteConfig.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -58,18 +70,20 @@ export default function ContactPage() {
               </a>
             </li>
           </ul>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-5 flex flex-wrap gap-2.5">
             <Button href={siteConfig.whatsappUrl} external variant="outline">
               Chat on WhatsApp
             </Button>
-            <Button href={siteConfig.linkedin} external variant="ghost">
-              LinkedIn
+            <Button href="/assistant" variant="ghost">
+              AI Assistant
             </Button>
           </div>
-        </div>
-        <div className="rounded-2xl border border-slate-500/15 bg-[#101A2B]/70 p-6 sm:p-8">
-          <ContactForm />
-        </div>
+        </FadeIn>
+        <FadeIn direction="right" delay={0.08}>
+          <div className="rounded-2xl border border-white/10 bg-[#111722]/80 p-5 sm:p-6">
+            <ContactForm />
+          </div>
+        </FadeIn>
       </div>
     </Section>
   );

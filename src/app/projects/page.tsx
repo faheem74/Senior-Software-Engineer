@@ -5,11 +5,12 @@ import {
 } from "@/data/projects";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { ProjectFilters } from "@/components/projects/ProjectFilters";
+import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "12 verified web, mobile, e-commerce, and Figma projects from Faheem Bilal’s portfolio.",
+    "Verified web, mobile, e-commerce, and Figma projects from Faheem Bilal’s portfolio.",
 };
 
 export default function ProjectsPage() {
@@ -18,11 +19,13 @@ export default function ProjectsPage() {
 
   return (
     <Section>
-      <SectionHeading
-        eyebrow="Projects"
-        title={`${projects.length} verified projects`}
-        description="Curated from resume-verified work and CodesThinker research links. Live demos, Google Play, and Figma actions appear only when real URLs exist. Filters: All, Web, Mobile, Ecommerce, UI/UX, and more when present."
-      />
+      <FadeIn>
+        <SectionHeading
+          eyebrow="Projects"
+          title={`${projects.length} verified projects`}
+          description="Curated live products, published apps, Figma designs, and public GitHub work. Filters help you browse by category."
+        />
+      </FadeIn>
       <ProjectFilters projects={projects} categories={categories} />
     </Section>
   );

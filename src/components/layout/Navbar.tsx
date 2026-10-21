@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
@@ -8,9 +9,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
 export function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("home");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -20,33 +21,8 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const ids = [
-      "home",
-      "about",
-      "skills",
-      "services",
-      "experience",
-      "projects",
-      "ai-cloud",
-      "contact",
-    ];
-    const observers: IntersectionObserver[] = [];
-
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActive(id);
-        },
-        { rootMargin: "-35% 0px -55% 0px", threshold: 0 },
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
-  }, []);
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <header
@@ -58,7 +34,7 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
-        <Link href="/#home" className="group flex shrink-0 items-center gap-2">
+        <Link href="/" className="group flex shrink-0 items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#7C5CFF] to-[#35D6FF] text-xs font-semibold text-white">
             FB
           </span>
@@ -69,15 +45,17 @@ export function Navbar() {
 
         <nav className="hidden items-center gap-0.5 xl:flex">
           {siteConfig.nav.map((item) => {
-            const id = item.href.replace("/#", "");
-            const isActive = active === id;
+            const active =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
                   "rounded-lg px-2.5 py-1.5 text-[13px] transition-colors",
-                  isActive
+                  active
                     ? "bg-[#7C5CFF]/15 text-[#35D6FF]"
                     : "text-[#A6AFBF] hover:bg-white/5 hover:text-[#F5F7FA]",
                 )}
@@ -89,7 +67,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden xl:block">
-          <Button href="/#contact" variant="primary" className="px-4 py-2 text-xs">
+          <Button href="/contact" variant="primary" className="px-4 py-2 text-xs">
             Let&apos;s Talk
           </Button>
         </div>
@@ -112,17 +90,14 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => setOpen(false)}
                 className="rounded-lg px-3 py-2.5 text-sm text-[#F5F7FA] hover:bg-white/5"
               >
                 {item.label}
               </Link>
             ))}
-            <div onClick={() => setOpen(false)}>
-              <Button href="/#contact" className="mt-2 w-full">
-                Let&apos;s Talk
-              </Button>
-            </div>
+            <Button href="/contact" className="mt-2 w-full">
+              Let&apos;s Talk
+            </Button>
           </nav>
         </div>
       ) : null}
