@@ -23,7 +23,7 @@ export default function ProjectsPage() {
         <SectionHeading
           eyebrow="Projects"
           title={`${projects.length} verified projects`}
-          description="Curated live products, published apps, Figma designs, and public GitHub work. Filters help you browse by category."
+          description="Curated live products, published apps, and Figma designs. Filters help you browse by category."
         />
       </FadeIn>
       <ProjectFilters projects={projects} categories={categories} />

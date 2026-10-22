@@ -1,5 +1,4 @@
 import { ArrowDown, ArrowRight, Mail, FileDown } from "lucide-react";
-import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { getFeaturedProjects, getVisibleProjects } from "@/data/projects";
 import { services } from "@/data/services";
@@ -7,7 +6,6 @@ import { experienceRoles } from "@/data/experience";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { HeroPortrait } from "@/components/ui/HeroPortrait";
-import { GitHubIcon } from "@/components/ui/GitHubIcon";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { RoleRotator } from "@/components/motion/RoleRotator";
 import { SplitHeadline } from "@/components/motion/SplitHeadline";
@@ -17,15 +15,23 @@ import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 import { CountUp } from "@/components/motion/CountUp";
 import { BigTextReveal } from "@/components/motion/BigTextReveal";
 import { OrbitBackdrop } from "@/components/motion/OrbitBackdrop";
+import { CaseRail } from "@/components/motion/CaseRail";
 
 export default function HomePage() {
   const featured = getFeaturedProjects().slice(0, 4);
   const projectCount = getVisibleProjects().length;
 
+  const caseItems = services.slice(0, 6).map((s) => ({
+    id: s.id,
+    title: s.title,
+    subtitle: s.description,
+    href: "/services",
+  }));
+
   return (
     <>
-      {/* ——— HERO (Polpharma cinematic + GPG atmosphere) ——— */}
-      <section className="relative min-h-[min(100svh,960px)] overflow-hidden border-b border-white/5">
+      {/* HERO */}
+      <section className="relative min-h-[min(100svh,900px)] overflow-hidden border-b border-white/5">
         <OrbitBackdrop />
         <div className="pointer-events-none absolute inset-0 grid-fade opacity-40" />
 
@@ -65,18 +71,18 @@ export default function HomePage() {
             </div>
             <div className="mt-6 flex flex-wrap gap-4 text-sm">
               <a
-                href={siteConfig.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[#A6AFBF] transition hover:text-[#35D6FF]"
-              >
-                <GitHubIcon size={15} /> GitHub Profile
-              </a>
-              <a
                 href={`mailto:${siteConfig.email}`}
                 className="inline-flex items-center gap-1.5 text-[#A6AFBF] transition hover:text-[#35D6FF]"
               >
                 <Mail size={15} /> Email Me
+              </a>
+              <a
+                href={siteConfig.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[#A6AFBF] transition hover:text-[#35D6FF]"
+              >
+                LinkedIn
               </a>
               <a
                 href={siteConfig.resumeUrl}
@@ -94,48 +100,34 @@ export default function HomePage() {
           </FadeIn>
         </div>
 
-        <div className="pb-6 text-center">
-          <Link
-            href="#impact"
+        <div className="pb-5 text-center">
+          <a
+            href="#stack"
             className="inline-flex flex-col items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-[#7A8499] hover:text-[#35D6FF]"
           >
             Scroll
             <ArrowDown size={14} className="motion-safe:animate-bounce" />
-          </Link>
+          </a>
         </div>
       </section>
 
-      <TechMarquee />
+      {/* Tech row — same place as before, directly under hero */}
+      <div id="stack">
+        <TechMarquee />
+      </div>
 
-      {/* ——— IMPACT STATS (Polpharma counters) ——— */}
-      <Section id="impact">
+      {/* GPG-style horizontal case rail */}
+      <Section>
         <SectionHeading
-          eyebrow="Impact"
-          title="Engineering built for production"
-          description="Verified focus areas from 8+ years shipping full-stack systems."
+          eyebrow="Explore"
+          title="Capabilities in motion"
+          description="Swipe or scroll through the services I deliver for product teams."
         />
-        <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { n: 8, suffix: "+", label: "Years experience" },
-            { n: projectCount, suffix: "", label: "Verified projects" },
-            { n: 9, suffix: "", label: "Service areas" },
-            { n: 14, suffix: "+", label: "Core technologies" },
-          ].map((item) => (
-            <StaggerItem
-              key={item.label}
-              className="rounded-2xl border border-white/10 bg-[#111722]/80 p-5"
-            >
-              <p className="text-4xl font-semibold tracking-tight text-[#F5F7FA]">
-                <CountUp value={item.n} suffix={item.suffix} />
-              </p>
-              <p className="mt-2 text-sm text-[#A6AFBF]">{item.label}</p>
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <CaseRail items={caseItems} />
       </Section>
 
-      {/* ——— PHILOSOPHY (Polpharma big text) ——— */}
-      <section className="relative overflow-hidden border-y border-white/5 bg-[#0D111A]/70 py-16 md:py-20">
+      {/* Polpharma-style philosophy band */}
+      <section className="relative overflow-hidden border-y border-white/5 bg-[#0D111A]/70 py-16 md:py-24">
         <OrbitBackdrop />
         <div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6">
           <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.22em] text-[#35D6FF]">
@@ -153,42 +145,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ——— SERVICES PREVIEW (GPG card carousel feel) ——— */}
-      <Section>
-        <SectionHeading
-          eyebrow="Services"
-          title="What I deliver"
-          description="Full-stack, backend, AI, and cloud engagements — explore the full list on Services."
-        />
-        <Stagger className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {services.slice(0, 6).map((service) => (
-            <StaggerItem
-              key={service.id}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#111722]/70 p-5 transition hover:border-[#7C5CFF]/45"
-            >
-              <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#7C5CFF]/10 blur-2xl transition group-hover:bg-[#7C5CFF]/25" />
-              <p className="relative font-mono text-[10px] uppercase tracking-[0.18em] text-[#35D6FF]">
-                Service
-              </p>
-              <h3 className="relative mt-2 text-lg font-semibold text-[#F5F7FA]">
-                {service.title}
-              </h3>
-              <p className="relative mt-2 text-sm text-[#A6AFBF]">
-                {service.description}
-              </p>
-            </StaggerItem>
-          ))}
-        </Stagger>
-        <Magnetic className="mt-6 inline-flex">
-          <Button href="/services">
-            View all services
-            <ArrowRight size={16} />
-          </Button>
-        </Magnetic>
-      </Section>
-
-      {/* ——— EXPERIENCE STRIP ——— */}
-      <Section className="bg-[#0D111A]/50">
+      <Section className="bg-[#0D111A]/40">
         <SectionHeading
           eyebrow="Experience"
           title="Recent roles"
@@ -216,12 +173,11 @@ export default function HomePage() {
         </Stagger>
       </Section>
 
-      {/* ——— PROJECTS ——— */}
       <Section>
         <SectionHeading
           eyebrow="Projects"
           title={`${projectCount} verified projects`}
-          description="Live products, published apps, Figma designs, and public GitHub work."
+          description="Live products, published apps, and Figma designs with authentic links."
         />
         <Stagger className="grid gap-4 md:grid-cols-2">
           {featured.map((project) => (
@@ -242,7 +198,33 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* ——— CTA BAND ——— */}
+      {/* Impact counters — moved below projects */}
+      <Section id="impact" className="bg-[#0D111A]/50">
+        <SectionHeading
+          eyebrow="Impact"
+          title="Engineering built for production"
+          description="Verified focus areas from 8+ years shipping full-stack systems."
+        />
+        <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { n: 8, suffix: "+", label: "Years experience" },
+            { n: projectCount, suffix: "", label: "Verified projects" },
+            { n: 9, suffix: "", label: "Service areas" },
+            { n: 14, suffix: "+", label: "Core technologies" },
+          ].map((item) => (
+            <StaggerItem
+              key={item.label}
+              className="rounded-2xl border border-white/10 bg-[#111722]/80 p-5"
+            >
+              <p className="text-4xl font-semibold tracking-tight text-[#F5F7FA]">
+                <CountUp value={item.n} suffix={item.suffix} />
+              </p>
+              <p className="mt-2 text-sm text-[#A6AFBF]">{item.label}</p>
+            </StaggerItem>
+          ))}
+        </Stagger>
+      </Section>
+
       <Section>
         <FadeIn>
           <div className="relative overflow-hidden rounded-3xl border border-[#7C5CFF]/30 bg-gradient-to-br from-[#142238] via-[#111722] to-[#0D111A] p-8 sm:p-12">

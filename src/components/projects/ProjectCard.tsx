@@ -4,7 +4,6 @@ import Image from "next/image";
 import { ExternalLink, PenTool, ArrowUpRight, Smartphone } from "lucide-react";
 import type { Project } from "@/data/projects";
 import { Button } from "@/components/ui/Button";
-import { GitHubIcon } from "@/components/ui/GitHubIcon";
 import { motion, useReducedMotion } from "framer-motion";
 
 const statusLabel: Record<Project["status"], string> = {
@@ -77,17 +76,6 @@ export function ProjectCard({ project }: { project: Project }) {
             >
               View Live Project
               <ExternalLink size={16} />
-            </Button>
-          ) : null}
-          {project.sourceUrl ? (
-            <Button
-              href={project.sourceUrl}
-              external
-              variant="ghost"
-              className="px-3 py-2"
-            >
-              Source
-              <GitHubIcon size={16} />
             </Button>
           ) : null}
           {project.playStoreUrl ? (

@@ -36,9 +36,9 @@ export function SplitHeadline({
             initial={{ y: "110%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
             transition={{
-              duration: 0.75,
-              delay: 0.15 + i * 0.12,
-              ease: [0.22, 1, 0.36, 1],
+              duration: 0.85,
+              delay: 0.2 + i * 0.14,
+              ease: [0.16, 1, 0.3, 1],
             }}
           >
             {line}

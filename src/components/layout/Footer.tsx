@@ -45,16 +45,6 @@ export function Footer() {
             <li>
               <a
                 className="hover:text-[#F5F7FA]"
-                href={siteConfig.github}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a
-                className="hover:text-[#F5F7FA]"
                 href={siteConfig.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -65,11 +55,11 @@ export function Footer() {
             <li>
               <a
                 className="hover:text-[#F5F7FA]"
-                href={siteConfig.vercel}
+                href={siteConfig.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Vercel
+                WhatsApp
               </a>
             </li>
           </ul>

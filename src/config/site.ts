@@ -16,8 +16,6 @@ export const siteConfig = {
   whatsapp: "+923057874388",
   whatsappUrl: "https://wa.me/923057874388",
   linkedin: "https://www.linkedin.com/in/faheem-bilal-dev/",
-  github: "https://github.com/faheem74",
-  vercel: "https://vercel.com/faheem74",
   resumeUrl: "/resume/faheem-bilal.pdf",
   profileImage: "/images/profile/faheem-portrait.jpg",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",

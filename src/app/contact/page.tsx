@@ -48,17 +48,6 @@ export default function ContactPage() {
               </a>
             </li>
             <li>
-              GitHub:{" "}
-              <a
-                className="text-[#35D6FF] hover:underline"
-                href={siteConfig.github}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                github.com/faheem74
-              </a>
-            </li>
-            <li>
               LinkedIn:{" "}
               <a
                 className="text-[#35D6FF] hover:underline"
