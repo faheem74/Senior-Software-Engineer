@@ -16,6 +16,7 @@ import { CountUp } from "@/components/motion/CountUp";
 import { BigTextReveal } from "@/components/motion/BigTextReveal";
 import { OrbitBackdrop } from "@/components/motion/OrbitBackdrop";
 import { CaseRail } from "@/components/motion/CaseRail";
+import { ScrollRevealBand } from "@/components/motion/ScrollRevealBand";
 
 export default function HomePage() {
   const featured = getFeaturedProjects().slice(0, 4);
@@ -30,11 +31,8 @@ export default function HomePage() {
 
   return (
     <>
-      {/* HERO */}
-      <section className="relative min-h-[min(100svh,900px)] overflow-hidden border-b border-white/5">
-        <OrbitBackdrop />
-        <div className="pointer-events-none absolute inset-0 grid-fade opacity-40" />
-
+      {/* HERO — clean text column; motion only on portrait */}
+      <section className="relative min-h-[min(100svh,900px)] overflow-hidden">
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:px-8 lg:py-20">
           <FadeIn direction="left">
             <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-[#35D6FF]">
@@ -95,7 +93,7 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          <FadeIn direction="right" delay={0.12}>
+          <FadeIn direction="right" delay={0.12} className="relative z-10 overflow-hidden">
             <HeroPortrait />
           </FadeIn>
         </div>
@@ -126,9 +124,8 @@ export default function HomePage() {
         <CaseRail items={caseItems} />
       </Section>
 
-      {/* Polpharma-style philosophy band */}
-      <section className="relative overflow-hidden border-y border-white/5 bg-[#0D111A]/70 py-16 md:py-24">
-        <OrbitBackdrop />
+      {/* Polpharma-style scroll philosophy band (below hero) */}
+      <ScrollRevealBand className="border-y border-white/5 bg-[#0D111A]/70 py-16 md:py-24">
         <div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6">
           <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.22em] text-[#35D6FF]">
             Philosophy
@@ -143,7 +140,7 @@ export default function HomePage() {
             </Button>
           </div>
         </div>
-      </section>
+      </ScrollRevealBand>
 
       <Section className="bg-[#0D111A]/40">
         <SectionHeading

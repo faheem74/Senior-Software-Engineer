@@ -15,7 +15,7 @@ export function FloatingOrbs({ className }: { className?: string }) {
       )}
       aria-hidden
     >
-      <div className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 sm:h-[400px] sm:w-[400px]" />
+      <div className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#7C5CFF]/20 sm:h-[400px] sm:w-[400px]" />
       <div className="absolute left-1/2 top-1/2 h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#7C5CFF]/25 sm:h-[500px] sm:w-[500px]" />
       <div className="absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#35D6FF]/15 sm:h-[580px] sm:w-[580px]" />
 
@@ -38,7 +38,7 @@ export function FloatingOrbs({ className }: { className?: string }) {
             style={{ ["--orbit-r" as string]: "210px" }}
           />
           <span
-            className="animate-orbit absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70"
+            className="animate-orbit absolute left-1/2 top-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#35D6FF]/80"
             style={{ ["--orbit-r" as string]: "260px", animationDuration: "32s" }}
           />
           <span className="animate-float-slow absolute right-[4%] top-[14%] h-28 w-28 rounded-full bg-[#7C5CFF]/30 blur-2xl" />

@@ -12,7 +12,7 @@ export function OrbitBackdrop({ className }: { className?: string }) {
       className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
       aria-hidden
     >
-      <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.05]" />
+      <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#7C5CFF]/10" />
       <div className="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#7C5CFF]/12" />
       <div className="absolute left-1/2 top-1/2 h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#35D6FF]/08" />
       {!reduce ? (
@@ -26,7 +26,7 @@ export function OrbitBackdrop({ className }: { className?: string }) {
             style={{ ["--orbit-r" as string]: "280px" }}
           />
           <span
-            className="animate-orbit absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70"
+            className="animate-orbit absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#35D6FF]/70"
             style={{
               ["--orbit-r" as string]: "360px",
               animationDuration: "32s",

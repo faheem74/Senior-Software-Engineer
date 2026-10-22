@@ -16,7 +16,10 @@ export function HeroPortrait({ className }: { className?: string }) {
 
   return (
     <motion.div
-      className={cn("relative mx-auto flex w-full max-w-md justify-center", className)}
+      className={cn(
+        "relative mx-auto flex w-full max-w-md justify-center overflow-hidden",
+        className,
+      )}
       initial={reduce ? false : { opacity: 0, scale: 0.88, rotate: -4 }}
       animate={{ opacity: 1, scale: 1, rotate: 0 }}
       transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
