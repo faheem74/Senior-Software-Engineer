@@ -17,7 +17,7 @@ export function HeroPortrait({ className }: { className?: string }) {
   return (
     <motion.div
       className={cn(
-        "relative mx-auto flex w-full max-w-md justify-center overflow-hidden",
+        "relative mx-auto flex w-full max-w-md justify-center py-10 sm:py-12",
         className,
       )}
       initial={reduce ? false : { opacity: 0, scale: 0.88, rotate: -4 }}
@@ -49,7 +49,7 @@ export function HeroPortrait({ className }: { className?: string }) {
           transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-          className="absolute -inset-6 rounded-full border border-dashed border-[#35D6FF]/25"
+          className="absolute -inset-6 rounded-full border border-[#35D6FF]/25"
           animate={reduce ? undefined : { rotate: -360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
         />

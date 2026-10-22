@@ -28,16 +28,13 @@ export function TechMarquee({ className }: { className?: string }) {
       />
       <div
         className={cn(
-          "flex w-max gap-10 whitespace-nowrap px-4 font-mono text-xs uppercase tracking-[0.24em] text-[#A6AFBF] sm:text-sm",
+          "flex w-max gap-8 whitespace-nowrap px-4 font-mono text-xs uppercase tracking-[0.24em] text-[#A6AFBF] sm:gap-10 sm:text-sm",
           !reduce && "animate-marquee",
         )}
       >
         {items.map((tech, i) => (
-          <span key={`${tech}-${i}`} className="inline-flex items-center gap-10">
-            <span className="text-[#F5F7FA]/90">{tech}</span>
-            <span className="text-[#7C5CFF]" aria-hidden>
-              ◆
-            </span>
+          <span key={`${tech}-${i}`} className="text-[#F5F7FA]/90">
+            {tech}
           </span>
         ))}
       </div>

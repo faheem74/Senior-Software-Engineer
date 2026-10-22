@@ -32,7 +32,7 @@ export default function HomePage() {
   return (
     <>
       {/* HERO — clean text column; motion only on portrait */}
-      <section className="relative min-h-[min(100svh,900px)] overflow-hidden">
+      <section className="relative min-h-[min(100svh,900px)] overflow-x-clip">
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:px-8 lg:py-20">
           <FadeIn direction="left">
             <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-[#35D6FF]">
@@ -93,7 +93,7 @@ export default function HomePage() {
             </div>
           </FadeIn>
 
-          <FadeIn direction="right" delay={0.12} className="relative z-10 overflow-hidden">
+          <FadeIn direction="right" delay={0.12} className="relative z-10">
             <HeroPortrait />
           </FadeIn>
         </div>
