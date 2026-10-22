@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { Logo } from "@/components/ui/Logo";
 import { Magnetic } from "@/components/motion/MagneticButton";
 
 export function Navbar() {
@@ -38,14 +39,7 @@ export function Navbar() {
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Magnetic strength={10}>
-          <Link href="/" className="group flex shrink-0 items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[#7C5CFF] to-[#35D6FF] text-xs font-semibold text-white transition group-hover:shadow-[0_0_20px_rgba(124,92,255,0.55)]">
-              FB
-            </span>
-            <span className="text-sm font-semibold tracking-tight text-[#F5F7FA]">
-              {siteConfig.name}
-            </span>
-          </Link>
+          <Logo />
         </Magnetic>
 
         <nav className="relative hidden items-center gap-0.5 xl:flex">

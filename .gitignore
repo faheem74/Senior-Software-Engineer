@@ -45,3 +45,6 @@ next-env.d.ts
 # Private local extracts
 /private/
 
+
+.vercel
+.env*

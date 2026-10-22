@@ -21,7 +21,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.article
       layout={!reduce}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111722]/90 transition duration-300 hover:-translate-y-1 hover:border-[#7C5CFF]/40 hover:shadow-[0_20px_50px_rgba(124,92,255,0.16)]"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111722]/90 transition duration-500 hover:-translate-y-2 hover:border-[#7C5CFF]/45 hover:shadow-[0_24px_60px_rgba(124,92,255,0.2)]"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-[#0B1220]">
         <Image

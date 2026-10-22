@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { Logo } from "@/components/ui/Logo";
 
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-[#080A0F]">
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 md:grid-cols-3 lg:px-8">
         <div>
-          <p className="text-base font-semibold text-[#F5F7FA]">{siteConfig.name}</p>
-          <p className="mt-1 text-sm leading-relaxed text-[#A6AFBF]">
+          <Logo />
+          <p className="mt-3 text-sm leading-relaxed text-[#A6AFBF]">
             {siteConfig.title}
           </p>
           <p className="mt-2 text-sm text-[#7A8499]">{siteConfig.roleNote}</p>
