@@ -1,12 +1,12 @@
 export const siteConfig = {
   name: "Faheem Bilal",
   title: "Senior Software Engineer | AI & Cloud Architect",
-  roleNote: "COO, Codes Thinker — personal portfolio (independent brand)",
+  roleNote: "Personal portfolio of Faheem Bilal",
   headline: "Senior Software Engineer Building Scalable Digital Experiences.",
   description:
     "Explore Faheem Bilal's portfolio showcasing full-stack engineering, scalable backend systems, AI integrations, cloud architecture, and modern web applications.",
   positioning:
-    "Senior Software Engineer and AI & Cloud Architect with 8+ years of experience building scalable web applications, intelligent AI-powered solutions, and reliable cloud systems.",
+    "Senior Software Engineer and AI & Cloud Architect with 8+ years of experience building scalable web applications, intelligent AI-powered solutions, and reliable cloud systems. Experience spans frontend work at Core Codexa, full-stack delivery at Codings First, and ongoing full-stack engineering at Codesthinker.",
   philosophy:
     "I build reliable, scalable software by combining thoughtful architecture, clean code, practical problem-solving, and technology that delivers measurable business value.",
   yearsExperience: "8+",

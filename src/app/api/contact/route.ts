@@ -43,7 +43,7 @@ export async function POST(request: Request) {
   if (parsed.data.website) {
     return created({
       id: "ignored",
-      message: "Thanks — your message was received.",
+      message: "Thanks, your message was received.",
       emailDelivered: false,
     });
   }
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
 
   const message = emailResult.delivered
     ? "Message received and email notification sent."
-    : "Message received and stored. Email notification is not configured or failed — Faheem can still review stored inquiries.";
+    : "Message received and stored. Email notification is not configured or failed. Faheem can still review stored inquiries.";
 
   return created({
     id: record.id,

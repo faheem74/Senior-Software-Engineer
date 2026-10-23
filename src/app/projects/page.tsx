@@ -21,7 +21,7 @@ export default function ProjectsPage() {
       <SectionHeading
         eyebrow="Projects"
         title={`${projects.length} verified projects`}
-        description="Live web apps, Vercel deployments, published apps, and Figma designs — with authentic links."
+        description="Live web apps, Vercel deployments, published apps, and Figma designs with authentic links."
       />
       {projects.length === 0 ? (
         <p className="rounded-2xl border border-white/10 bg-[#111722] p-8 text-center text-[#A6AFBF]">

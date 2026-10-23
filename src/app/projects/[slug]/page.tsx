@@ -192,7 +192,7 @@ export default async function ProjectCaseStudyPage({ params }: Props) {
             Want something similar?
           </h2>
           <p className="mt-3 text-slate-400">
-            Share your goals and constraints — I&apos;ll help shape a practical
+            Share your goals and constraints. I&apos;ll help shape a practical
             delivery plan.
           </p>
           <Button href="/contact" className="mt-6">

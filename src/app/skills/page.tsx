@@ -16,7 +16,7 @@ export default function SkillsPage() {
       <SectionHeading
         eyebrow="Skills"
         title="Technical skills"
-        description="Verified from professional experience — no fabricated proficiency percentages."
+        description="Verified from professional experience. No fabricated proficiency percentages."
       />
       <Stagger className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
         {skillCategories.map((category) => (

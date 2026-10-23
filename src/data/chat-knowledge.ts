@@ -106,7 +106,7 @@ export const faqEntries: FaqEntry[] = [
   {
     id: "mobile",
     patterns: [/mobile/i, /react native/i, /apps?/i, /figma/i],
-    answer: `Faheem works with React Native and mobile UI/UX in Figma. Pure Fitness Africa is listed on Google Play. Design prototypes include Fast Ride, STMCZ, Yes Time, Health & Fitness, and a multi-services app — see /designs.`,
+    answer: `Faheem works with React Native and mobile UI/UX in Figma. Pure Fitness Africa is listed on Google Play. Design prototypes include Fast Ride, STMCZ, Yes Time, Health & Fitness, and a multi-services app. See /designs.`,
   },
   {
     id: "ai",
@@ -117,6 +117,11 @@ export const faqEntries: FaqEntry[] = [
     id: "backend",
     patterns: [/backend/i, /api/i, /nestjs/i, /node/i, /server/i],
     answer: `Yes. Backend work covers Node.js, Express.js, NestJS, REST and GraphQL APIs, auth, databases, microservices, Docker, and AWS.`,
+  },
+  {
+    id: "experience",
+    patterns: [/experience/i, /work history/i, /career/i, /codings first/i, /core codexa/i, /codesthinker/i],
+    answer: `Faheem's timeline includes Full Stack Software Developer at Codesthinker (Jul 2023 to Present), Full Stack Developer at Codings First (Dec 2022 to Jun 2023), and Frontend Web Developer at Core Codexa (Sep 2022 to Nov 2022) with React.js and Next.js. See /experience.`,
   },
   {
     id: "contact",

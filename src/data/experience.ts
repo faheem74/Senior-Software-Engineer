@@ -1,5 +1,5 @@
 /**
- * Employment history sourced from Faheem_Bilal_Senior_Software_Engineer_Resume (Oct 2026).
+ * Employment history for Faheem Bilal portfolio.
  */
 export interface ExperienceRole {
   id: string;
@@ -12,7 +12,7 @@ export interface ExperienceRole {
 export const experienceSummary = {
   years: "8+",
   summary:
-    "Senior Software Engineer specializing in full-stack, backend and cloud-based application development with the JavaScript/TypeScript ecosystem (React.js, Next.js, Angular, Node.js, NestJS, Express.js) across the MERN and MEAN stacks.",
+    "Senior Software Engineer with hands-on experience across frontend and full-stack development. Strong focus on React.js, Next.js, and end-to-end JavaScript/TypeScript delivery for production web products.",
 };
 
 export const experienceRoles: ExperienceRole[] = [
@@ -23,10 +23,10 @@ export const experienceRoles: ExperienceRole[] = [
     period: "Jul 2023 – Present",
     bullets: [
       "Architect and develop scalable full-stack web applications with React.js, Next.js, Node.js (Express) and NestJS.",
-      "Led end-to-end development of enterprise-grade platforms, including an Anesthesiology Board Preparation System and a Food Delivery Application.",
-      "Design and implement RESTful APIs and GraphQL services for secure frontend–backend communication.",
+      "Led end-to-end development of enterprise-grade platforms across product and client delivery.",
+      "Design and implement RESTful APIs and GraphQL services for secure frontend and backend communication.",
       "Build and maintain microservices-based architecture for modularity and reliability.",
-      "Work with MongoDB, PostgreSQL and MySQL — schema design, indexing, query optimization, and performance tuning.",
+      "Work with MongoDB, PostgreSQL and MySQL including schema design, indexing, and performance tuning.",
       "Deploy and manage cloud infrastructure on AWS (Lambda, EC2, S3, RDS).",
       "Implement Docker-based containerization and support CI/CD pipelines.",
       "Integrate Python-based AI/ML services and intelligent APIs.",
@@ -34,17 +34,30 @@ export const experienceRoles: ExperienceRole[] = [
     ],
   },
   {
-    id: "codiea",
-    company: "CODIEA",
-    title: "Software Developer",
+    id: "codings-first",
+    company: "Codings First",
+    title: "Full Stack Developer",
     period: "Dec 2022 – Jun 2023",
     bullets: [
-      "Developed and maintained scalable web applications on the MERN stack.",
-      "Designed and optimized relational and NoSQL databases with PostgreSQL and MongoDB.",
-      "Built and integrated RESTful APIs and WebSocket-based real-time features.",
-      "Developed responsive, SEO-optimized front-end interfaces with React.js and Next.js.",
-      "Collaborated with UI/UX teams to turn designs into reusable front-end components.",
-      "Participated across the full software development lifecycle.",
+      "Built and maintained scalable full-stack web applications using the MERN stack.",
+      "Developed frontend interfaces in React.js and Next.js with responsive, SEO-aware layouts.",
+      "Designed and integrated RESTful APIs with Node.js and Express for production features.",
+      "Worked with PostgreSQL and MongoDB for relational and NoSQL data needs.",
+      "Collaborated with design and product teams to ship reusable UI components.",
+      "Supported the full development lifecycle from implementation through release.",
+    ],
+  },
+  {
+    id: "core-codexa",
+    company: "Core Codexa",
+    title: "Frontend Web Developer",
+    period: "Sep 2022 – Nov 2022",
+    bullets: [
+      "Worked as a frontend web developer on React.js and Next.js product interfaces.",
+      "Built responsive UI screens, component structures, and page flows for web applications.",
+      "Translated design requirements into clean, maintainable frontend code.",
+      "Improved usability and consistency across key user journeys on the web.",
+      "Collaborated with the team on frontend delivery during a focused 3-month engagement.",
     ],
   },
 ];

@@ -18,7 +18,7 @@ export function Logo({
     <Link
       href="/"
       className={cn("group flex shrink-0 items-center gap-2.5", className)}
-      aria-label="Faheem Bilal — home"
+      aria-label="Faheem Bilal home"
     >
       <motion.span
         className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl"

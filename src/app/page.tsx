@@ -153,7 +153,7 @@ export default function HomePage() {
           description="Verified timeline from the senior resume."
         />
         <Stagger className="space-y-3">
-          {experienceRoles.slice(0, 2).map((role) => (
+          {experienceRoles.slice(0, 3).map((role) => (
             <StaggerItem
               key={role.id}
               className="flex flex-col gap-2 rounded-2xl border border-white/10 bg-[#111722]/70 p-5 sm:flex-row sm:items-center sm:justify-between"
@@ -235,7 +235,7 @@ export default function HomePage() {
                 Ready to build something reliable?
               </h2>
               <p className="mt-3 max-w-2xl text-[#A6AFBF]">
-                Tell me about your product, API, or AI idea — or ask Faheem AI
+                Tell me about your product, API, or AI idea, or ask Faheem AI
                 about verified skills and projects first.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">

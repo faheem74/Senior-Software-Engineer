@@ -19,7 +19,7 @@ export default function AssistantPage() {
         <FadeIn>
           <SectionHeading
             eyebrow="AI Assistant"
-            title="Faheem AI — Portfolio Assistant"
+            title="Faheem AI Portfolio Assistant"
             description="Ask about skills, projects, backend experience, AI/cloud work, or how to contact Faheem. Uses a real server API (Gemini or Groq) when AI_API_KEY is configured; otherwise a verified knowledge fallback."
           />
         </FadeIn>

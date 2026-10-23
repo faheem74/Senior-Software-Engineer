@@ -7,7 +7,7 @@ import { FadeIn, Stagger, StaggerItem } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `About ${siteConfig.name} — Senior Software Engineer with 8+ years of experience.`,
+  description: `About ${siteConfig.name}, Senior Software Engineer with 8+ years of experience.`,
 };
 
 export default function AboutPage() {
@@ -28,8 +28,11 @@ export default function AboutPage() {
             <div className="mt-3 space-y-3 text-sm leading-relaxed text-[#A6AFBF] sm:text-base">
               <p>
                 I deliver production web applications, frontend architecture,
-                backend APIs, cloud deployments, and AI integrations — with
+                backend APIs, cloud deployments, and AI integrations with a
                 focus on performance, maintainability, and reliable operations.
+                My path includes frontend React and Next.js work at Core Codexa,
+                full-stack development at Codings First, and ongoing full-stack
+                engineering at Codesthinker.
               </p>
               <p className="rounded-xl border border-white/10 bg-[#111722] p-4 text-[#F5F7FA]">
                 {siteConfig.philosophy}

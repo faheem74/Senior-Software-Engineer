@@ -19,7 +19,7 @@ import { siteConfig } from "@/config/site";
 type Msg = { role: "user" | "assistant"; content: string; mode?: string };
 
 const WELCOME =
-  "Hi — I’m Faheem AI, the portfolio assistant (not Faheem personally). Ask about verified experience, skills, projects, demos, or how to get in touch.";
+  "Hi, I’m Faheem AI, the portfolio assistant (not Faheem personally). Ask about verified experience, skills, projects, demos, or how to get in touch.";
 
 export function ChatWidget({
   initiallyOpen = false,
@@ -147,7 +147,7 @@ export function ChatWidget({
           ) : null}
           <div>
             <p className="text-sm font-semibold text-slate-50">
-              Faheem AI — Portfolio Assistant
+              Faheem AI Portfolio Assistant
             </p>
             <p className="text-xs text-slate-400">
               {mode === "ai"

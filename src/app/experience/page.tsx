@@ -16,7 +16,7 @@ export default function ExperiencePage() {
         <SectionHeading
           eyebrow="Experience"
           title="Professional timeline"
-          description="Verified roles from the senior resume."
+          description="Professional roles across Codesthinker, Codings First, and Core Codexa."
         />
         <div className="relative border-l border-white/10 pl-6">
           {experienceRoles.map((role, index) => (

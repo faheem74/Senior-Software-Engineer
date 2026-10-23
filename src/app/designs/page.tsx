@@ -7,7 +7,7 @@ import { Stagger, StaggerItem } from "@/components/motion/FadeIn";
 export const metadata: Metadata = {
   title: "UI/UX Designs",
   description:
-    "Figma mobile app designs by Faheem Bilal — Fast Ride, STMCZ, Yes Time, Health & Fitness, and multi-module concepts.",
+    "Figma mobile app designs by Faheem Bilal: Fast Ride, STMCZ, Yes Time, Health & Fitness, and multi-module concepts.",
 };
 
 export default function DesignsPage() {
@@ -18,7 +18,7 @@ export default function DesignsPage() {
       <SectionHeading
         eyebrow="UI/UX Designs"
         title="Mobile app designs in Figma"
-        description="Authentic design files linked from the verified resume. These are design prototypes — not published App Store products unless a live URL is also listed."
+        description="Authentic design files linked from the verified resume. These are design prototypes, not published App Store products unless a live URL is also listed."
       />
       <Stagger className="grid gap-6 md:grid-cols-2">
         {designs.map((project) => (
