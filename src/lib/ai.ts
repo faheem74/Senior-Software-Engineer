@@ -27,7 +27,7 @@ async function callGemini(
       role: "user",
       parts: [{ text: `${systemPrompt}\n\n---\nConversation context follows.` }],
     },
-    ...history.slice(-8).map((h) => ({
+    ...history.slice(-12).map((h) => ({
       role: h.role === "assistant" ? "model" : "user",
       parts: [{ text: h.content }],
     })),
@@ -35,7 +35,7 @@ async function callGemini(
       role: "user",
       parts: [
         {
-          text: `User question: ${message}\n\nReply helpfully using only approved portfolio facts.`,
+          text: `User question: ${message}\n\nReply helpfully using only approved portfolio facts. Continue the conversation naturally.`,
         },
       ],
     },
@@ -47,11 +47,11 @@ async function callGemini(
     body: JSON.stringify({
       contents,
       generationConfig: {
-        maxOutputTokens: 500,
-        temperature: 0.3,
+        maxOutputTokens: 700,
+        temperature: 0.35,
       },
     }),
-    signal: AbortSignal.timeout(15000),
+    signal: AbortSignal.timeout(20000),
   });
 
   if (!res.ok) throw new Error(`Gemini error ${res.status}`);
@@ -65,15 +65,17 @@ async function callGemini(
   return text.trim();
 }
 
-async function callGroq(
+async function callOpenAiCompatible(
+  endpoint: string,
   message: string,
   history: ChatHistoryItem[] = [],
   systemPrompt: string,
+  defaultModel: string,
 ): Promise<string> {
-  const model = process.env.AI_MODEL || "llama-3.1-8b-instant";
+  const model = process.env.AI_MODEL || defaultModel;
   const key = process.env.AI_API_KEY!;
 
-  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+  const res = await fetch(endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -81,31 +83,64 @@ async function callGroq(
     },
     body: JSON.stringify({
       model,
-      temperature: 0.3,
-      max_tokens: 500,
+      temperature: 0.35,
+      max_tokens: 700,
       messages: [
         { role: "system", content: systemPrompt },
-        ...history.slice(-8),
+        ...history.slice(-12),
         { role: "user", content: message },
       ],
     }),
-    signal: AbortSignal.timeout(15000),
+    signal: AbortSignal.timeout(20000),
   });
 
-  if (!res.ok) throw new Error(`Groq error ${res.status}`);
+  if (!res.ok) throw new Error(`AI provider error ${res.status}`);
 
   const data = await res.json();
   const text = data?.choices?.[0]?.message?.content;
-  if (!text?.trim()) throw new Error("Empty Groq response");
+  if (!text?.trim()) throw new Error("Empty AI response");
   return text.trim();
+}
+
+async function callGroq(
+  message: string,
+  history: ChatHistoryItem[] = [],
+  systemPrompt: string,
+): Promise<string> {
+  return callOpenAiCompatible(
+    "https://api.groq.com/openai/v1/chat/completions",
+    message,
+    history,
+    systemPrompt,
+    "llama-3.1-8b-instant",
+  );
+}
+
+async function callOpenRouter(
+  message: string,
+  history: ChatHistoryItem[] = [],
+  systemPrompt: string,
+): Promise<string> {
+  return callOpenAiCompatible(
+    "https://openrouter.ai/api/v1/chat/completions",
+    message,
+    history,
+    systemPrompt,
+    "openrouter/auto",
+  );
 }
 
 export async function generateAssistantReply(
   message: string,
   history: ChatHistoryItem[] = [],
 ): Promise<{ reply: string; source: "ai" | "faq" }> {
+  const faq = () => ({
+    reply: assistantFaqReply(message, history),
+    source: "faq" as const,
+  });
+
   if (!isAiConfigured()) {
-    return { reply: assistantFaqReply(message), source: "faq" };
+    return faq();
   }
 
   const provider = (process.env.AI_PROVIDER || "").toLowerCase();
@@ -124,12 +159,16 @@ export async function generateAssistantReply(
         source: "ai",
       };
     }
-    return { reply: assistantFaqReply(message), source: "faq" };
+    if (provider === "openrouter") {
+      return {
+        reply: await callOpenRouter(message, history, systemPrompt),
+        source: "ai",
+      };
+    }
+    return faq();
   } catch {
-    return {
-      reply: `${assistantFaqReply(message)} (AI provider temporarily unavailable — using portfolio knowledge fallback.)`,
-      source: "faq",
-    };
+    // Never dead-end the chat — fall back to knowledge replies for every turn.
+    return faq();
   }
 }
 
@@ -158,11 +197,14 @@ export async function generateChatReply(message: string): Promise<{
         source: "ai",
       };
     }
+    if (provider === "openrouter") {
+      return {
+        reply: await callOpenRouter(message, [], systemPrompt),
+        source: "ai",
+      };
+    }
     return { reply: defaultFaqFallback(message), source: "faq" };
   } catch {
-    return {
-      reply: `${defaultFaqFallback(message)} (AI provider temporarily unavailable — using portfolio FAQ.)`,
-      source: "faq",
-    };
+    return { reply: defaultFaqFallback(message), source: "faq" };
   }
 }

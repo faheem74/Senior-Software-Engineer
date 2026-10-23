@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import type { Project, ProjectCategory } from "@/data/projects";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { FadeIn } from "@/components/motion/FadeIn";
 import { cn } from "@/lib/utils";
 
 export function ProjectFilters({
@@ -43,8 +43,8 @@ export function ProjectFilters({
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs transition",
                 active === tab
-                  ? "border-blue-400/50 bg-blue-500/20 text-sky-300"
-                  : "border-slate-500/20 text-slate-400 hover:border-slate-400/40 hover:text-slate-200",
+                  ? "border-[#7C5CFF]/50 bg-[#7C5CFF]/20 text-[#F5F7FA]"
+                  : "border-white/10 text-[#A6AFBF] hover:border-white/25 hover:text-[#F5F7FA]",
               )}
             >
               {tab}
@@ -55,25 +55,25 @@ export function ProjectFilters({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search projects…"
-          className="w-full rounded-xl border border-slate-500/20 bg-[#0B1220] px-4 py-2.5 text-sm text-slate-100 outline-none focus:border-blue-400/40 sm:max-w-xs"
+          className="w-full rounded-xl border border-white/10 bg-[#0B1220] px-4 py-2.5 text-sm text-[#F5F7FA] outline-none focus:border-[#7C5CFF]/40 sm:max-w-xs"
           aria-label="Search projects"
         />
       </div>
 
-      <p className="mb-4 text-sm text-slate-500">
+      <p className="mb-4 text-sm text-[#7A8499]">
         Showing {filtered.length} of {projects.length} projects
       </p>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <AnimatePresence mode="popLayout">
-          {filtered.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </AnimatePresence>
+        {filtered.map((project, i) => (
+          <FadeIn key={project.slug} delay={Math.min(i * 0.04, 0.28)}>
+            <ProjectCard project={project} />
+          </FadeIn>
+        ))}
       </div>
 
       {filtered.length === 0 ? (
-        <p className="rounded-2xl border border-slate-500/15 bg-[#101A2B]/50 p-8 text-center text-slate-400">
+        <p className="rounded-2xl border border-white/10 bg-[#111722]/50 p-8 text-center text-[#A6AFBF]">
           No projects match this filter.
         </p>
       ) : null}

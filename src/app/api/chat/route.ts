@@ -9,7 +9,7 @@ const schema = z.object({
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  const limited = rateLimit(`chat:${ip}`, 20, 60_000);
+  const limited = rateLimit(`chat:${ip}`, 60, 60_000);
   if (!limited.allowed) {
     return fail("Too many chat requests. Please wait a moment.", 429, {
       code: "RATE_LIMITED",

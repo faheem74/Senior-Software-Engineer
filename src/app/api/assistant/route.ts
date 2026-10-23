@@ -12,13 +12,13 @@ const schema = z.object({
         content: z.string().max(2000),
       }),
     )
-    .max(12)
+    .max(20)
     .optional(),
 });
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  const limited = rateLimit(`assistant:${ip}`, 20, 60_000);
+  const limited = rateLimit(`assistant:${ip}`, 60, 60_000);
   if (!limited.allowed) {
     return fail("Too many assistant requests. Please wait a moment.", 429, {
       code: "RATE_LIMITED",

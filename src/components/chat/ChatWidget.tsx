@@ -48,8 +48,8 @@ export function ChatWidget({
     const trimmed = text.trim();
     if (!trimmed || loading) return;
 
-    const nextHistory = [...messages, { role: "user" as const, content: trimmed }];
-    setMessages(nextHistory);
+    const prior = messages.filter((m) => m.content !== WELCOME);
+    setMessages((m) => [...m, { role: "user", content: trimmed }]);
     setInput("");
     setLoading(true);
     setError(null);
@@ -60,10 +60,10 @@ export function ChatWidget({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmed,
-          history: nextHistory
-            .filter((m) => m.content !== WELCOME)
-            .slice(-10)
-            .map((m) => ({ role: m.role, content: m.content })),
+          history: prior.slice(-12).map((m) => ({
+            role: m.role,
+            content: m.content,
+          })),
         }),
       });
       const json = await res.json();
@@ -232,7 +232,7 @@ export function ChatWidget({
         <div ref={endRef} />
       </div>
 
-      {messages.length < 3 ? (
+      {!loading ? (
         <div className="flex flex-wrap gap-2 border-t border-slate-500/10 px-3 py-2">
           {assistantSuggestedQuestions.slice(0, 5).map((q) => (
             <button
