@@ -114,17 +114,13 @@ export function assistantFaqReply(
   if (/^(thanks?|thank you|thx|shukriya)\b/i.test(q)) {
     return `You’re welcome. Ask another question anytime, or email ${siteConfig.email}.`;
   }
-  if (
-    /\b(about|who is|tell me about|faheem bilal|your(self)?|background|bio)\b/i.test(
-      q,
-    )
-  ) {
-    return `${siteConfig.name} is a ${siteConfig.title} with ${siteConfig.yearsExperience} years of experience. ${siteConfig.positioning} He is also associated as COO of Codes Thinker; this site is his personal portfolio. Details: /about`;
-  }
   if (/\b(technolog|stack|skills?|tools?)\b/i.test(q)) {
     return `Primary technologies include ${siteConfig.primaryTechnologies.join(", ")}. Full list: /skills`;
   }
-  if (/\b(experience|work history|career|resume|job|roles?)\b/i.test(q)) {
+  if (/\b(backend|apis?|nestjs|node\.?js|server|database)\b/i.test(q)) {
+    return `Backend work covers Node.js, Express.js, NestJS, REST/GraphQL APIs, JWT auth, MongoDB/PostgreSQL/MySQL, microservices, Docker, and AWS. Timeline: /experience`;
+  }
+  if (/\b(experience|work history|career|resume|jobs?|roles?)\b/i.test(q)) {
     return `Recent roles: Full Stack Software Developer at Codesthinker (Jul 2023 – Present) and Software Developer at CODIEA (Dec 2022 – Jun 2023). Timeline: /experience`;
   }
   if (
@@ -143,8 +139,12 @@ export function assistantFaqReply(
   if (/\b(mobile|android|play store|react native|\bapps?\b)\b/i.test(q)) {
     return `Mobile-related entries: ${projectList(mobile.length ? mobile : figma, 6)}. See /projects.`;
   }
-  if (/\b(backend|apis?|nestjs|node|server|database)\b/i.test(q)) {
-    return `Backend work covers Node.js, Express.js, NestJS, REST/GraphQL APIs, JWT auth, MongoDB/PostgreSQL/MySQL, microservices, Docker, and AWS. Timeline: /experience`;
+  if (
+    /\b(who is|faheem bilal|yourself|background|bio)\b/i.test(q) ||
+    /^tell me about (him|faheem|yourself)\b/i.test(q) ||
+    /^about (faheem|him|you)\b/i.test(q)
+  ) {
+    return `${siteConfig.name} is a ${siteConfig.title} with ${siteConfig.yearsExperience} years of experience. ${siteConfig.positioning} He is also associated as COO of Codes Thinker; this site is his personal portfolio. Details: /about`;
   }
   if (/\b(ai|machine learning|generative|llm|chatbot)\b/i.test(q)) {
     return `Resume-verified AI work includes Generative AI integrations, Python AI/ML services, and API-based AI features. Contact: /contact`;
