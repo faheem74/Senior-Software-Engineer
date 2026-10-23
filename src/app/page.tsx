@@ -19,8 +19,12 @@ import { CaseRail } from "@/components/motion/CaseRail";
 import { ScrollRevealBand } from "@/components/motion/ScrollRevealBand";
 
 export default function HomePage() {
-  const featured = getFeaturedProjects().slice(0, 4);
-  const projectCount = getVisibleProjects().length;
+  const allProjects = getVisibleProjects();
+  const featured = [
+    ...getFeaturedProjects(),
+    ...allProjects.filter((p) => !p.featured),
+  ].slice(0, 12);
+  const projectCount = allProjects.length;
 
   const caseItems = services.slice(0, 6).map((s) => ({
     id: s.id,

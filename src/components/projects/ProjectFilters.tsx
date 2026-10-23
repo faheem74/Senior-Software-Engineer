@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import type { Project, ProjectCategory } from "@/data/projects";
 import { ProjectCard } from "@/components/projects/ProjectCard";
-import { FadeIn } from "@/components/motion/FadeIn";
 import { cn } from "@/lib/utils";
 
 export function ProjectFilters({
@@ -64,11 +63,11 @@ export function ProjectFilters({
         Showing {filtered.length} of {projects.length} projects
       </p>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        {filtered.map((project, i) => (
-          <FadeIn key={project.slug} delay={Math.min(i * 0.04, 0.28)}>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {filtered.map((project) => (
+          <div key={project.slug} className="min-h-[420px]">
             <ProjectCard project={project} />
-          </FadeIn>
+          </div>
         ))}
       </div>
 

@@ -28,7 +28,7 @@ export function Preloader() {
       } catch {
         /* ignore */
       }
-    }, 2000);
+    }, 900);
     return () => window.clearTimeout(t);
   }, [reduce]);
 
