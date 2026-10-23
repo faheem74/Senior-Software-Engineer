@@ -12,6 +12,7 @@ const schema = z.object({
   timeline: z.string().trim().max(80).optional(),
   message: z.string().trim().min(10).max(4000),
   website: z.string().max(200).optional(),
+  clientEmailDelivered: z.boolean().optional(),
 });
 
 export async function POST(request: Request) {
@@ -39,7 +40,6 @@ export async function POST(request: Request) {
     });
   }
 
-  // Honeypot: bots fill this; humans never see it.
   if (parsed.data.website) {
     return created({
       id: "ignored",
@@ -48,32 +48,39 @@ export async function POST(request: Request) {
     });
   }
 
-  const { website: _honeypot, ...payload } = parsed.data;
+  const {
+    website: _honeypot,
+    clientEmailDelivered = false,
+    ...payload
+  } = parsed.data;
   void _honeypot;
 
-  const emailResult = await sendContactNotification(payload);
-  const record = await saveContact({
-    ...payload,
-    emailDelivered: emailResult.delivered,
-    emailError: emailResult.error,
-  });
+  let emailDelivered = clientEmailDelivered;
+  let emailError: string | undefined;
+  let provider: string | undefined = clientEmailDelivered
+    ? "formsubmit-client"
+    : undefined;
 
-  if (!emailResult.delivered) {
-    return fail(
-      "Could not send your message right now. Please email faheembilal7874@gmail.com directly, or try again in a moment.",
-      502,
-      {
-        code: "EMAIL_FAILED",
-        details: { provider: emailResult.provider },
-      },
-    );
+  if (!clientEmailDelivered) {
+    const emailResult = await sendContactNotification(payload);
+    emailDelivered = emailResult.delivered;
+    emailError = emailResult.error;
+    provider = emailResult.provider;
   }
 
+  const record = await saveContact({
+    ...payload,
+    emailDelivered,
+    emailError,
+  });
+
+  // Always acknowledge receipt — client opens mailto if emailDelivered is false.
   return created({
     id: record.id,
-    message:
-      "Thank you. Your message was sent successfully. Faheem will get back to you soon.",
-    emailDelivered: true,
-    provider: emailResult.provider,
+    message: emailDelivered
+      ? "Thank you. Your message was sent successfully. Faheem will get back to you soon."
+      : "Message received. If email delivery is still activating, your mail app will open as backup.",
+    emailDelivered,
+    provider,
   });
 }

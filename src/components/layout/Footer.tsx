@@ -66,7 +66,8 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/5 py-4 text-center text-xs text-[#7A8499]">
-        © {new Date().getFullYear()} {siteConfig.name}. Built with Next.js.
+        © {new Date().getFullYear()} {siteConfig.name}. Built with Full Stack
+        Development.
       </div>
     </footer>
   );

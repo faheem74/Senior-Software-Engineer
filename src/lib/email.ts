@@ -10,6 +10,14 @@ export type ContactMailInput = {
   message: string;
 };
 
+export type MailResult = {
+  delivered: boolean;
+  error?: string;
+  provider?: string;
+  /** Owner must click FormSubmit activate link once */
+  needsActivation?: boolean;
+};
+
 export function isSmtpConfigured() {
   return Boolean(
     process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS,
@@ -20,7 +28,11 @@ export function isResendConfigured() {
   return Boolean(process.env.RESEND_API_KEY);
 }
 
-/** Contact mail always has a delivery path (FormSubmit fallback to inbox). */
+export function isWeb3FormsConfigured() {
+  return Boolean(process.env.WEB3FORMS_ACCESS_KEY);
+}
+
+/** Contact always has a delivery path (FormSubmit / Web3Forms / SMTP / Resend). */
 export function isEmailConfigured() {
   return true;
 }
@@ -29,9 +41,14 @@ function receiverEmail() {
   return process.env.CONTACT_RECEIVER_EMAIL || siteConfig.email;
 }
 
-async function sendViaSmtp(
-  input: ContactMailInput,
-): Promise<{ delivered: boolean; error?: string; provider: string }> {
+function siteUrl() {
+  return (
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://faheem-software-engineer.vercel.app"
+  );
+}
+
+async function sendViaSmtp(input: ContactMailInput): Promise<MailResult> {
   try {
     const port = Number(process.env.SMTP_PORT || 587);
     const transporter = nodemailer.createTransport({
@@ -66,13 +83,10 @@ async function sendViaSmtp(
   }
 }
 
-async function sendViaResend(
-  input: ContactMailInput,
-): Promise<{ delivered: boolean; error?: string; provider: string }> {
+async function sendViaResend(input: ContactMailInput): Promise<MailResult> {
   try {
     const to = receiverEmail();
-    const from =
-      process.env.CONTACT_SENDER_EMAIL || "onboarding@resend.dev";
+    const from = process.env.CONTACT_SENDER_EMAIL || "onboarding@resend.dev";
 
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -106,12 +120,53 @@ async function sendViaResend(
   }
 }
 
-/** Zero-config delivery to the portfolio inbox (FormSubmit). */
-async function sendViaFormSubmit(
-  input: ContactMailInput,
-): Promise<{ delivered: boolean; error?: string; provider: string }> {
+async function sendViaWeb3Forms(input: ContactMailInput): Promise<MailResult> {
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        access_key: process.env.WEB3FORMS_ACCESS_KEY,
+        subject: `Portfolio inquiry: ${input.projectType} (${input.name})`,
+        from_name: siteConfig.name,
+        name: input.name,
+        email: input.email,
+        projectType: input.projectType,
+        budget: input.budget || "Not specified",
+        timeline: input.timeline || "Not specified",
+        message: input.message,
+      }),
+      signal: AbortSignal.timeout(15000),
+    });
+
+    const data = (await res.json().catch(() => null)) as {
+      success?: boolean;
+      message?: string;
+    } | null;
+
+    if (!res.ok || !data?.success) {
+      throw new Error(data?.message || `Web3Forms error ${res.status}`);
+    }
+
+    return { delivered: true, provider: "web3forms" };
+  } catch (error) {
+    return {
+      delivered: false,
+      provider: "web3forms",
+      error: error instanceof Error ? error.message : "Web3Forms delivery failed",
+    };
+  }
+}
+
+/** FormSubmit needs a real Origin/Referer (Vercel serverless must send them). */
+async function sendViaFormSubmit(input: ContactMailInput): Promise<MailResult> {
   try {
     const to = receiverEmail();
+    const origin = siteUrl().replace(/\/$/, "");
+
     const res = await fetch(
       `https://formsubmit.co/ajax/${encodeURIComponent(to)}`,
       {
@@ -119,6 +174,8 @@ async function sendViaFormSubmit(
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Origin: origin,
+          Referer: `${origin}/contact`,
         },
         body: JSON.stringify({
           name: input.name,
@@ -141,25 +198,23 @@ async function sendViaFormSubmit(
       message?: string;
     } | null;
 
-    if (!res.ok) {
-      throw new Error(data?.message || `FormSubmit error ${res.status}`);
+    const message = String(data?.message || "");
+    const successFlag = data?.success === true || data?.success === "true";
+    const needsActivation = /activate|activation|confirm|check your email/i.test(
+      message,
+    );
+
+    if (needsActivation) {
+      return {
+        delivered: false,
+        provider: "formsubmit",
+        needsActivation: true,
+        error: message,
+      };
     }
 
-    // First-time FormSubmit may require inbox confirmation once.
-    const ok =
-      data?.success === true ||
-      data?.success === "true" ||
-      /sent|success|thank/i.test(String(data?.message || ""));
-
-    if (!ok && data?.message) {
-      // Still treat as delivered if FormSubmit accepted the payload.
-      if (/confirm|activate|check your email/i.test(data.message)) {
-        return {
-          delivered: true,
-          provider: "formsubmit",
-          error: data.message,
-        };
-      }
+    if (!res.ok || !successFlag) {
+      throw new Error(message || `FormSubmit error ${res.status}`);
     }
 
     return { delivered: true, provider: "formsubmit" };
@@ -218,21 +273,39 @@ function escapeHtml(value: string) {
 }
 
 /**
- * Prefer SMTP / Resend when configured; otherwise FormSubmit to the inbox.
+ * Prefer SMTP / Resend / Web3Forms when configured; otherwise FormSubmit.
  */
 export async function sendContactNotification(
   input: ContactMailInput,
-): Promise<{ delivered: boolean; error?: string; provider?: string }> {
+): Promise<MailResult> {
+  const errors: string[] = [];
+
   if (isSmtpConfigured()) {
     const smtp = await sendViaSmtp(input);
     if (smtp.delivered) return smtp;
-    // Fall through to other providers if SMTP fails.
+    if (smtp.error) errors.push(`smtp: ${smtp.error}`);
   }
 
   if (isResendConfigured()) {
     const resend = await sendViaResend(input);
     if (resend.delivered) return resend;
+    if (resend.error) errors.push(`resend: ${resend.error}`);
   }
 
-  return sendViaFormSubmit(input);
+  if (isWeb3FormsConfigured()) {
+    const w3 = await sendViaWeb3Forms(input);
+    if (w3.delivered) return w3;
+    if (w3.error) errors.push(`web3forms: ${w3.error}`);
+  }
+
+  const formSubmit = await sendViaFormSubmit(input);
+  if (formSubmit.delivered || formSubmit.needsActivation) return formSubmit;
+
+  return {
+    delivered: false,
+    provider: formSubmit.provider || "none",
+    error: [formSubmit.error, ...errors].filter(Boolean).join(" | "),
+  };
 }
+
+export { receiverEmail, siteUrl };

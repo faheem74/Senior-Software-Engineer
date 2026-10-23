@@ -2,6 +2,8 @@
 
 import { FormEvent, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
+import { siteConfig } from "@/config/site";
+import { sendContactViaFormSubmitClient } from "@/lib/formsubmit-client";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
@@ -21,41 +23,83 @@ export function ContactForm() {
     const email = String(data.get("email") || "").trim();
     const subject = String(data.get("subject") || "").trim();
     const body = String(data.get("message") || "").trim();
+    const website = String(data.get("website") || "");
 
     if (name.length < 2 || !email.includes("@") || subject.length < 2 || body.length < 10) {
       setStatus("error");
-      setMessage("Please fill all fields properly (message should be at least 10 characters).");
+      setMessage(
+        "Please fill all fields properly (message should be at least 10 characters).",
+      );
       return;
     }
 
+    if (website) {
+      setStatus("success");
+      setMessage("Thank you. Your message was sent successfully.");
+      form.reset();
+      return;
+    }
+
+    const payload = {
+      name,
+      email,
+      projectType: subject,
+      message: body,
+    };
+
     try {
+      const clientMail = await sendContactViaFormSubmitClient(payload);
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name,
-          email,
-          projectType: subject,
-          message: body,
-          website: data.get("website"),
+          ...payload,
+          website,
+          clientEmailDelivered: clientMail.delivered,
         }),
       });
-      const json = await res.json();
-      if (!res.ok || !json.success) {
-        throw new Error(json?.error?.message || "Submission failed");
+      const json = await res.json().catch(() => null);
+      const apiDelivered = Boolean(res.ok && json?.success && json?.data?.emailDelivered);
+
+      if (clientMail.delivered || apiDelivered) {
+        setStatus("success");
+        setMessage(
+          json?.data?.message ||
+            "Thank you. Your message was sent successfully. Faheem will get back to you soon.",
+        );
+        form.reset();
+        return;
       }
+
+      // Guaranteed fallback: visitor's own mail app → portfolio inbox
+      const mailBody = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Subject: ${subject}`,
+        "",
+        body,
+      ].join("\n");
+      const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Portfolio inquiry: ${subject}`)}&body=${encodeURIComponent(mailBody)}`;
+      window.location.href = mailto;
+
       setStatus("success");
       setMessage(
-        json.data.message ||
-          "Thank you. Your message was sent successfully.",
+        "Opening your email app to send the message. Please press Send there — it goes directly to Faheem.",
       );
       form.reset();
-    } catch (err) {
-      setStatus("error");
+    } catch {
+      const mailBody = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Subject: ${subject}`,
+        "",
+        body,
+      ].join("\n");
+      window.location.href = `mailto:${siteConfig.email}?subject=${encodeURIComponent(`Portfolio inquiry: ${subject}`)}&body=${encodeURIComponent(mailBody)}`;
+      setStatus("success");
       setMessage(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong. Please try again or email faheembilal7874@gmail.com.",
+        "Opening your email app to send the message. Please press Send there — it goes directly to Faheem.",
       );
     }
   }
