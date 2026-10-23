@@ -3,79 +3,86 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-/** GPG-inspired orbital preloader — original FB branding. */
+/** Short branded splash — always clears so pages never look empty. */
 export function Preloader() {
   const reduce = useReducedMotion();
   const [show, setShow] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
+    const hide = () => {
+      if (!cancelled) setShow(false);
+    };
+
     if (reduce) {
-      setShow(false);
+      hide();
       return;
     }
+
     try {
       if (sessionStorage.getItem("fb-preloader")) {
-        setShow(false);
+        hide();
         return;
       }
     } catch {
       /* ignore */
     }
+
     const t = window.setTimeout(() => {
-      setShow(false);
+      hide();
       try {
         sessionStorage.setItem("fb-preloader", "1");
       } catch {
         /* ignore */
       }
-    }, 900);
-    return () => window.clearTimeout(t);
+    }, 700);
+
+    // Hard failsafe — never block content
+    const failsafe = window.setTimeout(hide, 1600);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(t);
+      window.clearTimeout(failsafe);
+    };
   }, [reduce]);
 
   return (
     <AnimatePresence>
       {show ? (
         <motion.div
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-[#080A0F]"
+          className="pointer-events-none fixed inset-0 z-[200] flex items-center justify-center bg-[#080A0F]"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.02 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.35 }}
           aria-hidden
         >
-          <div className="relative h-44 w-44">
+          <div className="relative h-28 w-28">
             <motion.div
               className="absolute inset-0"
               animate={{ rotate: 360 }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
             >
-              {[0, 1, 2, 3, 4, 5, 6].map((i) => {
-                const angle = (i / 7) * Math.PI * 1.35 - 0.6;
-                const r = 48 + i * 8;
+              {[0, 1, 2, 3, 4, 5].map((i) => {
+                const angle = (i / 6) * Math.PI * 2;
+                const r = 40;
                 return (
                   <span
                     key={i}
-                    className="absolute rounded-full"
+                    className="absolute h-2 w-2 rounded-full bg-[#7C5CFF]"
                     style={{
-                      width: Math.max(5, 12 - i),
-                      height: Math.max(5, 12 - i),
                       left: `calc(50% + ${Math.cos(angle) * r}px)`,
                       top: `calc(50% + ${Math.sin(angle) * r}px)`,
                       transform: "translate(-50%, -50%)",
-                      background: `rgba(124, 92, 255, ${1 - i * 0.1})`,
-                      boxShadow: "0 0 12px rgba(124,92,255,0.55)",
+                      opacity: 1 - i * 0.12,
                     }}
                   />
                 );
               })}
             </motion.div>
-            <motion.p
-              className="absolute inset-0 flex items-center justify-center text-2xl font-semibold tracking-[0.28em] text-[#F5F7FA]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.25 }}
-            >
+            <p className="absolute inset-0 flex items-center justify-center text-lg font-semibold tracking-[0.28em] text-[#F5F7FA]">
               FB
-            </motion.p>
+            </p>
           </div>
         </motion.div>
       ) : null}

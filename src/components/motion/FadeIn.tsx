@@ -35,7 +35,7 @@ export function FadeIn({
       className={className}
       initial={{ opacity: 0, ...offset }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, amount: "some" }}
       transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
@@ -61,7 +61,7 @@ export function Stagger({
       className={cn(className)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, amount: "some" }}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: 0.09 } },

@@ -5,7 +5,6 @@ import {
 } from "@/data/projects";
 import { Section, SectionHeading } from "@/components/ui/Section";
 import { ProjectFilters } from "@/components/projects/ProjectFilters";
-import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -19,14 +18,18 @@ export default function ProjectsPage() {
 
   return (
     <Section>
-      <FadeIn>
-        <SectionHeading
-          eyebrow="Projects"
-          title={`${projects.length} verified projects`}
-          description="Curated live products, published apps, and Figma designs. Filters help you browse by category."
-        />
-      </FadeIn>
-      <ProjectFilters projects={projects} categories={categories} />
+      <SectionHeading
+        eyebrow="Projects"
+        title={`${projects.length} verified projects`}
+        description="Live web apps, Vercel deployments, published apps, and Figma designs — with authentic links."
+      />
+      {projects.length === 0 ? (
+        <p className="rounded-2xl border border-white/10 bg-[#111722] p-8 text-center text-[#A6AFBF]">
+          Projects are loading. Please refresh, or open /api/projects.
+        </p>
+      ) : (
+        <ProjectFilters projects={projects} categories={categories} />
+      )}
     </Section>
   );
 }

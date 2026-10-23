@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/** Polpharma-style full-width section rise on scroll. */
+/** Soft section entrance — never traps tall content at opacity 0. */
 export function RevealSection({
   children,
   className,
@@ -21,10 +21,10 @@ export function RevealSection({
   return (
     <motion.div
       className={cn(className)}
-      initial={{ opacity: 0, y: 48 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: "some", margin: "0px 0px -40px 0px" }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
