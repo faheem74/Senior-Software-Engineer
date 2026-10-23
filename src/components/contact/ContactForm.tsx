@@ -17,15 +17,26 @@ export function ContactForm() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
+    const name = String(data.get("name") || "").trim();
+    const email = String(data.get("email") || "").trim();
+    const subject = String(data.get("subject") || "").trim();
+    const body = String(data.get("message") || "").trim();
+
+    if (name.length < 2 || !email.includes("@") || subject.length < 2 || body.length < 10) {
+      setStatus("error");
+      setMessage("Please fill all fields properly (message should be at least 10 characters).");
+      return;
+    }
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          projectType: data.get("subject"),
-          message: data.get("message"),
+          name,
+          email,
+          projectType: subject,
+          message: body,
           website: data.get("website"),
         }),
       });
@@ -34,11 +45,18 @@ export function ContactForm() {
         throw new Error(json?.error?.message || "Submission failed");
       }
       setStatus("success");
-      setMessage(json.data.message);
+      setMessage(
+        json.data.message ||
+          "Thank you. Your message was sent successfully.",
+      );
       form.reset();
     } catch (err) {
       setStatus("error");
-      setMessage(err instanceof Error ? err.message : "Something went wrong");
+      setMessage(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again or email faheembilal7874@gmail.com.",
+      );
     }
   }
 
@@ -84,7 +102,7 @@ export function ContactForm() {
           required
           maxLength={120}
           className={inputClass}
-          placeholder="Project inquiry, consulting, collaboration…"
+          placeholder="Project inquiry, consulting, collaboration"
         />
       </Field>
 
@@ -109,8 +127,8 @@ export function ContactForm() {
           role="status"
           className={
             status === "success"
-              ? "text-sm text-emerald-300"
-              : "text-sm text-rose-300"
+              ? "rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-200"
+              : "rounded-xl border border-rose-400/30 bg-rose-500/10 px-3 py-2 text-sm text-rose-200"
           }
         >
           {message}

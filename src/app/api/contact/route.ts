@@ -16,7 +16,7 @@ const schema = z.object({
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  const limited = rateLimit(`contact:${ip}`, 5, 60_000);
+  const limited = rateLimit(`contact:${ip}`, 8, 60_000);
   if (!limited.allowed) {
     return fail("Too many requests. Please try again shortly.", 429, {
       code: "RATE_LIMITED",
@@ -33,23 +33,23 @@ export async function POST(request: Request) {
 
   const parsed = schema.safeParse(body);
   if (!parsed.success) {
-    return fail("Validation failed", 400, {
+    return fail("Please check the form fields and try again.", 400, {
       code: "VALIDATION_ERROR",
       details: parsed.error.flatten(),
     });
   }
 
-  // Honeypot
+  // Honeypot: bots fill this; humans never see it.
   if (parsed.data.website) {
     return created({
       id: "ignored",
       message: "Thanks, your message was received.",
-      emailDelivered: false,
+      emailDelivered: true,
     });
   }
 
-  const { website: _, ...payload } = parsed.data;
-  void _;
+  const { website: _honeypot, ...payload } = parsed.data;
+  void _honeypot;
 
   const emailResult = await sendContactNotification(payload);
   const record = await saveContact({
@@ -58,13 +58,22 @@ export async function POST(request: Request) {
     emailError: emailResult.error,
   });
 
-  const message = emailResult.delivered
-    ? "Message received and email notification sent."
-    : "Message received and stored. Email notification is not configured or failed. Faheem can still review stored inquiries.";
+  if (!emailResult.delivered) {
+    return fail(
+      "Could not send your message right now. Please email faheembilal7874@gmail.com directly, or try again in a moment.",
+      502,
+      {
+        code: "EMAIL_FAILED",
+        details: { provider: emailResult.provider },
+      },
+    );
+  }
 
   return created({
     id: record.id,
-    message,
-    emailDelivered: emailResult.delivered,
+    message:
+      "Thank you. Your message was sent successfully. Faheem will get back to you soon.",
+    emailDelivered: true,
+    provider: emailResult.provider,
   });
 }
